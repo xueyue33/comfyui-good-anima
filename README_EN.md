@@ -17,13 +17,14 @@
 
 These Skills are designed for **AI Coding Agents** that can execute shell commands:
 
-| Assistant              | Status                 | Notes                                                                         |
-| ---------------------- | ---------------------- | ----------------------------------------------------------------------------- |
-| **🟢 Snow**            | ✅ Full Support        | **Recommended for Chinese users** — native Skills system support, plug & play |
-| **🟢 Claude Code**     | ✅ Full Support        | Anthropic official CLI with shell execution                                   |
-| **🟢 Codex (Claude)**  | ✅ Full Support        | Claude Codex mode, fully compatible                                           |
-| **🟢 OpenClaw**        | ✅ Supported           | Works with ComfyUI_Skill_CLI integrated agents                                |
-| **🟡 Other AI Agents** | ⚠️ Basic Compatibility | Any agent capable of PowerShell/Shell commands                                |
+| Assistant              | Status          | Notes                                                                         |
+| ---------------------- | --------------- | ----------------------------------------------------------------------------- |
+| **🟢 Snow**            | ✅ Full Support | **Recommended for Chinese users** — native Skills system support, plug & play |
+| **🟢 Claude Code**     | ✅ Full Support | Anthropic official CLI with shell execution                                   |
+| **🟢 Codex**           | ✅ Full Support | Full-featured AI coding agent, fully compatible                               |
+| **🟢 PI**              | ✅ Full Support | Lightweight AI coding agent, Skills system support                            |
+| **🟢 OpenClaw**        | ✅ Supported    | Works with ComfyUI_Skill_CLI integrated agents                                |
+| **🟡 Other AI Agents** | ✅ Full Support | Any agent capable of PowerShell/Shell commands                                |
 
 > 💡 **Recommended: [Snow](https://snowcli.com/docs) — the best AI coding agent experience in China**, with native Skills system support, ComfyUI integration, and Chinese language optimization.
 

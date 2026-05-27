@@ -19,13 +19,14 @@
 
 本项目的 Skills 为 **AI 编程代理（AI Coding Agent）** 设计，任何能执行 Shell 命令的 AI 助手均可使用：
 
-| 助手                  | 支持状态    | 说明                                              |
-| --------------------- | ----------- | ------------------------------------------------- |
-| **🟢 Snow**           | ✅ 完美支持 | **国内首选推荐** — 原生支持 Skills 系统，即开即用 |
-| **🟢 Claude Code**    | ✅ 完美支持 | Anthropic 官方 CLI，支持 Shell 命令执行           |
-| **🟢 Codex ** | ✅ 完美支持 | Claude Codex 模式，完全兼容                       |
-| **🟢 OpenClaw**       | ✅ 支持     | 支持 ComfyUI_Skill_CLI 集成的 Agents              |
-| **🟡 其他 AI Agent**  | ✅ 完美支持 | 只要能执行 PowerShell/Shell 命令即可              |
+| 助手                 | 支持状态    | 说明                                              |
+| -------------------- | ----------- | ------------------------------------------------- |
+| **🟢 Snow**          | ✅ 完美支持 | **国内首选推荐** — 原生支持 Skills 系统，即开即用 |
+| **🟢 Claude Code**   | ✅ 完美支持 | Anthropic 官方 CLI，支持 Shell 命令执行           |
+| **🟢 Codex**         | ✅ 完美支持 | 全功能 AI 编程代理，完全兼容                      |
+| **🟢 PI**            | ✅ 完美支持 | 轻量级 AI 编程代理，支持 Skills 系统              |
+| **🟢 OpenClaw**      | ✅ 支持     | 支持 ComfyUI_Skill_CLI 集成的 Agents              |
+| **🟡 其他 AI Agent** | ✅ 完美支持 | 只要能执行 PowerShell/Shell 命令即可              |
 
 > 💡 **推荐使用 [Snow](https://snowcli.com/docs) — 目前国内体验最好的 AI 编程代理**。
 
