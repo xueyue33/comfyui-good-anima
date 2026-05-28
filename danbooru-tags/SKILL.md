@@ -12,6 +12,7 @@ description: Search and validate Anima-compatible Danbooru tags, artists, charac
 - Anima prompt 规则以官方 HuggingFace 模型卡为准。
 - 检索数据默认只来自 Anima CSV / 本地索引；不要把外部泛画师表混入默认生图回填。
 - 是否生图、如何组 prompt、如何交接执行都属于 `comfyui-animatool`；本 skill 只返回检索结果。
+- 角色查询只返回角色 tag、aliases 和 count，不返回外观设定；不要把 aliases 当发色、服装或道具描述。
 
 ## 执行入口
 

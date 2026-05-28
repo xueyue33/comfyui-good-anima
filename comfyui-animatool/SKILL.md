@@ -72,7 +72,7 @@ description: Use for Anima / ComfyUI-AnimaTool image generation. Route Anima gen
 3. 必查：角色、作品、最终选定画师。
 4. 可查：最多 1 个用户明确指定且高度可标签化的外观/服装锚点。
 5. 不查：构图、环境光影、恶堕/氛围、情绪、连续动作、复杂服饰组合；这些写进 `nltags`。
-6. 不要把角色名当 appearance 查，例如不要查 `appearance --keyword "alice"`。
+6. 不要把角色名当 appearance 查，例如不要查 `appearance --keyword "alice"`；命名角色外观不确定时，不要用 appearance/clothing 盲查反推设定，先依据用户参考图、官方资料或轻量网络搜索确认关键外观，再只检索少量可标签化锚点，不确定细节写入 `nltags`。
 7. 只把 `confirmed_tags` 中与用户意图一致的项放入参数；`candidate_tags` 必须筛选。
 8. 如需提高命中率，把同一锚点的多个候选变体放进同一个 batch 文件，例如 `artist_pija` / `artist_okara`；不要多次调用 CLI。
 
