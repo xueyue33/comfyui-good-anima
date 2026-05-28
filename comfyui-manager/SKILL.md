@@ -92,11 +92,7 @@ comfyui-skill --dir "$WORKSPACE"
 
 ## PowerShell 与运行产物
 
-写入 args / batch JSON 时必须按版本分支：
-
-- PowerShell 7.x / 7.6：使用 UTF-8 no BOM，`Set-Content -Encoding utf8`。
-- Windows PowerShell 5.1：使用 UTF-8 with BOM，`Set-Content -Encoding UTF8`。
-- 不确定版本时先探测 `pwsh` / `$PSVersionTable`；不要直接假定 PowerShell 5，也不要直接手写无 BOM。
+写入 args / batch JSON 时默认使用 PowerShell 7 UTF-8 no BOM（`Set-Content -Encoding utf8`）。当前终端不是 PS7 时，用 `pwsh.exe -NoProfile -Command` 启动子进程。只有两种方式都不可用，才退到 PS5 + BOM。禁止不查版本就假设 PS5。
 
 运行产物不要写入 skill 目录。临时 args、批量 args、输出图片、缓存和历史统一放到 `$RUNTIME`：
 
@@ -315,7 +311,7 @@ args 文件格式按“工作流执行参数格式”执行：必须是纯参数
 
 Anima 输出命名规则：`filename_prefix` 必须使用 `anima/%year%-%month%-%day%/<model_tag>-<artist_tag>-<character_tag>`。`model_tag` 来自 UNet 模型名，去掉扩展名后转安全名，例如 `anima-base-v1.0.safetensors` -> `anima_base_v1_0`；默认工作流的 `artist_tag` 来自 prompt 中的单画师标签，去掉 `@`；Artist Mixer 工作流的 `artist_tag` 来自 `artist_chain`，按主次取 1–3 个画师名拼接。`character_tag` 来自主要角色标签。三者都转小写，并把空格或特殊符号替换成 `_`。ComfyUI 会自动按此前缀保存到 `output/anima/YYYY-MM-DD/`，并追加 `_00001_`、`_00002_` 这样的顺序号；不要手写序号。
 
-Anima 本地缓存规则：每次成功执行 Anima 生图后，除了返回 `outputs[].local_path` 指向的 ComfyUI 正式输出，还必须在 `$RUNTIME/cache/anima/YYYY-MM-DD/` 保留一份本地缓存，供远程 Claw/云端客户端复用，减少重复下载与重复调用。缓存日期必须优先来自输出的 `subfolder` 或 `source_local_path` 中的 `anima/YYYY-MM-DD`，其次才使用本地时区日期；不要用 `new Date().toISOString().slice(0, 10)` 生成缓存日期，UTC 会在中国时区凌晨把缓存写进前一天。缓存内容包括：输出图片副本或硬链接、最终 args JSON、manifest JSON。manifest 至少记录 `workflow_id`、`prompt_id`（如有）、`source_local_path`、`cache_local_path`、`args_path`、`filename_prefix`、`created_at`。如果 `outputs[].local_path` 已经位于缓存目录中，不要重复复制，只写 manifest；否则优先硬链接，失败后再按原文件名复制到缓存目录。缓存失败不应伪装生图失败，但必须在结果中说明缓存失败原因。
+Anima 本地缓存规则：每次成功执行 Anima 生图后，除了返回 `outputs[].local_path` 指向的 ComfyUI 正式输出，还必须在 `$RUNTIME/cache/anima/YYYY-MM-DD/` 保留一份本地缓存，供远程 Claw/云端客户端复用，减少重复下载与重复调用。缓存日期必须优先来自输出的 `subfolder` 或 `source_local_path` 中的 `anima/YYYY-MM-DD`，其次才使用本地时区日期；不要用 `new Date().toISOString().slice(0, 10)` 生成缓存日期，UTC 会在中国时区凌晨把缓存写进前一天。缓存内容包括：输出图片副本或硬链接、最终 args JSON、manifest JSON。manifest 至少记录 `workflow_id`、`prompt_id`（如有）、`source_local_path`、`cache_local_path`、`args_path`、`filename_prefix`、`created_at`。如果 `outputs[].local_path` 已经位于缓存目录中，不要重复复制，只写 manifest；否则优先硬链接，失败后再按原文件名复制到缓存目录。缓存失败不应伪装生图失败，但必须在结果中说明缓存失败原因。使用 `cache_anima_outputs.js` 补建缓存时，非默认 Anima workflow 必须传 `--workflow-id <workflow_id>`，与执行时的 workflow id 保持一致。
 
 临时提交脚本要求：凡是生成串行/并行提交脚本，都不能只调用 `comfyui-skill submit` 后结束。脚本必须记录每个 job 的 args 文件和 `prompt_id`，等待任务完成或在任务完成后用 `comfyui-skill --json status <prompt_id>` 读取 `outputs[].local_path`，再执行上述本地缓存规则。不要把 ComfyUI 队列返回的 `prompt_id` 传给 `history show`；`history show` 使用的是 workflow id + run_id。若脚本选择只入队不等待完成，必须同时生成一个后处理脚本或清单，说明如何根据 `prompt_id` 补建 `$RUNTIME/cache/anima/YYYY-MM-DD/` 缓存。远程 GUI / Claw / 云端客户端需要展示图片时，优先读取 runtime 缓存；若 `workspace/cache` 是 junction，也可以通过 workspace 路径读取。
 

@@ -4,8 +4,10 @@ const path = require('path');
 
 const workspace = __dirname;
 const runtimeRoot = resolveRuntimeRoot();
-const workflowId = 'local/anima-txt2img-aesthetic-lora';
-const historyDir = path.join(runtimeRoot, 'history', 'anima-txt2img-aesthetic-lora');
+const defaultWorkflowId = 'local/anima-txt2img-aesthetic-lora';
+const workflowId = argValue('--workflow-id', defaultWorkflowId);
+const workflowName = workflowNameFromId(workflowId);
+const historyDir = path.join(runtimeRoot, 'history', workflowName);
 
 function resolveRuntimeRoot() {
   if (process.env.COMFYUI_MANAGER_RUNTIME_DIR) {
@@ -50,6 +52,11 @@ function argValue(name, fallback = '') {
   const index = process.argv.indexOf(name);
   if (index >= 0 && process.argv[index + 1]) return process.argv[index + 1];
   return fallback;
+}
+
+function workflowNameFromId(value) {
+  const parts = String(value || '').split(/[\\/]/).filter(Boolean);
+  return parts.length ? parts[parts.length - 1] : defaultWorkflowId.split('/').pop();
 }
 
 function normalizeDate(value) {
@@ -228,6 +235,8 @@ function main() {
   }
   const results = jobs.map((job) => cacheOne(job, outputRoot));
   console.log(JSON.stringify({
+    workflow_id: workflowId,
+    workflow_name: workflowName,
     output_root: outputRoot,
     total_completed_seen: jobs.length,
     cached: results.filter((item) => item.cached).length,
