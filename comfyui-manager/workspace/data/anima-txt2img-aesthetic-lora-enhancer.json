@@ -96,22 +96,10 @@
     "class_type": "SaveImage",
     "inputs": {
       "images": [
-        "60",
-        0
-      ],
-      "filename_prefix": "anima/%year%-%month%-%day%/anima_base_v1_0-artist_tag-character_tag"
-    }
-  },
-  "60": {
-    "class_type": "RTXVideoSuperResolution",
-    "inputs": {
-      "images": [
         "8",
         0
       ],
-      "resize_type": "scale by multiplier",
-      "resize_type.scale": 2,
-      "quality": "ULTRA"
+      "filename_prefix": "anima/%year%-%month%-%day%/anima_base_v1_0-artist_tag-character_tag"
     }
   },
   "61": {

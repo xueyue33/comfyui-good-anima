@@ -86,22 +86,10 @@
     "class_type": "SaveImage",
     "inputs": {
       "images": [
-        "60",
-        0
-      ],
-      "filename_prefix": "anima/%year%-%month%-%day%/anima_base_v1_0-artist_tag-character_tag"
-    }
-  },
-  "60": {
-    "class_type": "RTXVideoSuperResolution",
-    "inputs": {
-      "images": [
         "8",
         0
       ],
-      "resize_type": "scale by multiplier",
-      "resize_type.scale": 2,
-      "quality": "ULTRA"
+      "filename_prefix": "anima/%year%-%month%-%day%/anima_base_v1_0-artist_tag-character_tag"
     }
   },
   "61": {
@@ -162,6 +150,14 @@
       "start_percent": 0,
       "end_percent": 1,
       "normalize_weights": true,
+      "artist_ema_alpha": 0,
+      "lowrank_k": 1,
+      "artist_static_capture": false,
+      "static_capture_k": 6,
+      "artist_anchor_q": false,
+      "anchor_seeds_count": 1,
+      "anchor_user_blend": 0,
+      "anchor_deep_layer_threshold": -1,
       "layer_filter": ""
     }
   },
